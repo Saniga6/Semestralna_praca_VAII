@@ -1,0 +1,48 @@
+.form-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.back-button:hover {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8);
+}
+
+.login-button:hover {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid darkgrey;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.form-input:focus {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8);
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.new-account {
+    color: white;
+    text-decoration: none;
+    padding-bottom: 30px;
+}
+

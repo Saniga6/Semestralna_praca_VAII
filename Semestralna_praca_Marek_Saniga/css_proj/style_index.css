@@ -1,3 +1,22 @@
+/* CSS for navbar */
+.container-fluid > span {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.navbar {
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
+    border: 1px solid #ccc;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
 
 /* CSS for index.html */
 .flex-container {
@@ -23,7 +42,7 @@
     border-radius: 20px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 8px 10px rgba(255, 255, 255, 0.25);
 }
 
 .img-item {
@@ -67,25 +86,6 @@
 
 .filter-text {
     color: blue;
-}
-
-.container-fluid > span {
-    text-align: center;
-    flex-grow: 1;
-    font-weight: bold;
-    font-size: 2rem;
-}
-
-.navbar {
-    border-radius: 20px;
-    width: 80%;
-    margin: auto;
-    border: 1px solid #ccc;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: black;
 }
 
 .img {
@@ -160,7 +160,7 @@ h3 {
 }
 
 .recept-text {
-    border-radius: 20px;
+    border-radius: 10px;
     background-color:#ccc;
     margin-left: 5px;
 }
