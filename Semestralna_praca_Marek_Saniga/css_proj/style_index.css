@@ -1,0 +1,180 @@
+
+/* CSS for index.html */
+.flex-container {
+    border-radius: 30px;
+    padding-left: 5px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 15vw 1fr;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+.flex-item {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    flex-direction: row;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.25);
+}
+
+.img-item {
+    margin-right: 10px;
+}
+
+.recept-name {
+    text-align: left;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: black;
+}
+
+.ingredients {
+    font-weight: bold;
+    line-height: 1rem;
+}
+
+.bold {
+    font-weight: bold;
+    line-height: 1rem;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+
+.filter-name {
+    font-weight: bold;
+    line-height: 2rem;
+    text-align: center;
+}
+
+.filter-all-text {
+    margin-left: 10px;
+}
+
+.filter-text {
+    color: blue;
+}
+
+.container-fluid > span {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.navbar {
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
+    border: 1px solid #ccc;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+@media (max-width: 1024px) { /* Tablet */
+    .recept-name {
+        font-size: 1.5rem;
+        text-wrap: wrap;
+    }
+
+    .img-item {
+        width: 20vw;
+    }
+
+    .container-fluid > span {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) { /* Mobil */
+    .recept-name {
+        font-size: 1rem;
+        text-wrap: wrap;
+    }
+
+    .img-item {
+        width: 20vw;
+        height: auto;
+    }
+
+    .filter-name {
+        font-size: 0.7rem;
+    }
+
+    .filter-text {
+        font-size: 0.7rem;
+    }
+
+    .bi {
+        font-size: 0.7rem;
+    }
+
+    .container-fluid > span {
+        font-size: 1rem;
+    }
+}
+
+/* CSS for recept.html */
+.image {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.component-holder {
+    margin: 10px;
+}
+
+.row-holder {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0.2, 0.35);
+    border-radius: 20px;
+}
+
+h3 {
+    margin-left: 5px;
+}
+
+.recept-text {
+    border-radius: 20px;
+    background-color:#ccc;
+    margin-left: 5px;
+}
+
+.checked {
+    color: orange;
+}
+
+.rating {
+    text-align: center;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -6,60 +6,86 @@
     <title>Receptár</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Semestralna_praca_Marek_Saniga/css_proj/style.css">
+    <link rel="stylesheet" href="/Semestralna_praca_Marek_Saniga/css_proj/style_index.css">
 </head>
 <body>
-<nav class="navbar bg-dark-subtle">
+<nav class="navbar">
     <div class="container-fluid">
-        <a class="bi-house" href="index.html"> Home</a>
+        <a class="bi bi-house" href="index.html"> Home</a>
         <span class="navbar-brand">Receptár</span>
+        <a class="bi bi-box-arrow-in-right" href="Third_page.html">Prihlásenie</a>
     </div>
 </nav>
 
-<div class="flex-container row-cols-lg-2">
-    <div class="flex-item">
-        <div class="img-item">
-            <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
-        </div>
-        <div class="text-item">
-            <a class="recept-name" href="Recept.html">Čokoládová torta</a>
-            <p class="ingredients">Ingrediencie: </p>
-            <p class="rating">Hodnotenie: </p>
+<div class="grid-container">
+    <div class="filter">
+        <div class="filter-all-text">
+            <p class="filter-name">Filtrovanie</p>
+            <div class="filter-text">
+                <label for="option1"><input class="filter-text" type="checkbox" id="option1">Mäsité pokrmy</label>
+
+                <label for="option2"><input class="filter-text" type="checkbox" id="option2">Sladké pokrmy</label>
+            </div>
         </div>
     </div>
+    <div class="flex-container">
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="Recept.html">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>4/5</span>
+                </p>
+            </div>
+        </div>
 
-    <div class="flex-item">
-        <div class="img-item">
-            <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="Recept.html">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>3/5</span>
+                </p>
+            </div>
         </div>
-        <div class="text-item">
-            <a class="recept-name" href="Recept.html">Čokoládová torta</a>
-            <p class="ingredients">Ingrediencie: </p>
-            <p class="rating">Hodnotenie: </p>
-        </div>
-    </div>
 
-    <div class="flex-item">
-        <div class="img-item">
-            <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="Recept.html">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>2/5</span>
+                </p>
+            </div>
         </div>
-        <div class="text-item">
-            <a class="recept-name" href="Recept.html">Čokoládová torta</a>
-            <p class="ingredients">Ingrediencie: </p>
-            <p class="rating">Hodnotenie: </p>
-        </div>
-    </div>
 
-    <div class="flex-item">
-        <div class="img-item">
-            <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
-        </div>
-        <div class="text-item">
-            <a class="recept-name" href="Recept.html">Čokoládová torta</a>
-            <p class="ingredients">Ingrediencie: </p>
-            <p class="rating">Hodnotenie: </p>
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="Recept.html"><img src="../IMG/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="Recept.html">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>1/5</span>
+                </p>
+            </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
