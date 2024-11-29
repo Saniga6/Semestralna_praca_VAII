@@ -1,30 +1,71 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col mt-5">
-            <div class="text-center">
-                <h2>Vaííčko MVC FW</h2>
-                <img src="public/images/vaiicko_logo.png">
-                <p>
-                    Gratulujeme vám, úspešne sa vám podarilo nainštalovať a spustiť framework
-                    <strong>Vaííčko</strong> <?= \App\Config\Configuration::FW_VERSION ?>!<br>
-                    Dúfame, že sa Vám pomocou tohto frameworku vytvoríte nejakú skvelú aplikáciu.<br>
-                </p>
-                <p>
-                    Tento jednoduchý framework bol vytvorený pre lepšie pochopenie architektúry MVC.<br>
-                    Je určený pre študentov predmetu <em>vývoj aplikácií pre internet a intranet</em>, ale nielen im.
-                </p>
+<?php
+/** @var \App\Core\LinkGenerator $link */
+?>
+
+<div class="grid-container">
+    <div class="filter">
+        <div class="filter-all-text">
+            <p class="filter-name">Filtrovanie</p>
+            <div class="filter-text">
+                <label for="option1"><input class="filter-text" type="checkbox" id="option1">Mäsité pokrmy</label>
+                <label for="option2"><input class="filter-text" type="checkbox" id="option2">Sladké pokrmy</label>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col text-center">
-            <h4>Autori</h4>
-            <div>
-                <a href="mailto:Patrik.Hrkut@fri.uniza.sk">doc. Ing. Patrik Hrkút, PhD.</a><br>
-                <a href="mailto:Michal.Duracik@fri.uniza.sk">Ing. Michal Ďuračík, PhD.</a><br>
-                <a href="mailto:Matej.Mesko@fri.uniza.sk">Ing. Matej Meško, PhD.</a><br><br>
-                &copy; 2020-<?= date('Y') ?> Žilinská univerzita v Žiline, Fakulta riadenia a informatiky, Katedra
-                softvérových technológií
+    <div class="flex-container">
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>4/5</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>3/5</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>2/5</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-item">
+            <div class="img-item">
+                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
+            </div>
+            <div class="text-item">
+                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
+                <p class="ingredients">Ingrediencie: </p>
+                <p>
+                    <span class="bold">Priemerné hodnotenie: </span>
+                    <span>1/5</span>
+                </p>
             </div>
         </div>
     </div>

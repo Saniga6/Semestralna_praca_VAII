@@ -15,7 +15,7 @@ class Configuration
     /**
      * App name
      */
-    public const APP_NAME = 'Vaííčko MVC FW';
+    public const APP_NAME = 'Receptar';
     public const FW_VERSION = '2.2';
 
     /**
@@ -30,6 +30,11 @@ class Configuration
      * URL where main page logging is. If action needs login, user will be redirected to this url
      */
     public const LOGIN_URL = '?c=auth&a=login';
+
+    /**
+     * URL that go to the main page.
+     */
+    public const HOME_URL = '?c=home';
     /**
      * Prefix of default view in App/Views dir. <ROOT_LAYOUT>.layout.view.php
      */

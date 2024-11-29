@@ -5,7 +5,25 @@ $layout = 'auth';
 /** @var \App\Core\LinkGenerator $link */
 ?>
 
-<div class="container">
+<div class="form-container">
+    <form class="form-signing" method="post" action="<?php $link->url("login") ?>">
+        <H2>Prihlásenie</H2>
+        <label for="email" class="no-margin">Email</label>
+        <input type="email" class="input-text form-input" id="email" placeholder="name@example.com">
+        <label for="password" class="no-margin">Heslo</label>
+        <input type="password" class="input-text form-input" id="password" placeholder="Heslo">
+        <a class="new-account">Registrácia</a>
+        <button type="submit" class="btn btn-outline-light login-button">Prihlásenie</button>
+    </form>
+</div>
+
+<a href="<?= \App\Config\Configuration::HOME_URL ?>">
+    <button type="submit" class="back-button btn btn-outline-light">Naspäť</button>
+</a>
+
+<script src="/js_bootstrap/bootstrap.bundle.min.js"></script>
+
+<!--<div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
