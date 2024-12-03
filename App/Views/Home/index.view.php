@@ -1,5 +1,11 @@
 <?php
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
+/** @var Array $data */
+/** @var Recept $recept */
+use App\Core\LinkGenerator;
+use App\Helpers\FileStorage;
+use App\Models\Recept;
+
 ?>
 
 <div class="grid-container">
@@ -14,59 +20,24 @@
     </div>
     <div class="flex-container">
         <div class="flex-item">
-            <div class="img-item">
-                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
-            </div>
-            <div class="text-item">
-                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
-                <p class="ingredients">Ingrediencie: </p>
-                <p>
-                    <span class="bold">Priemerné hodnotenie: </span>
-                    <span>4/5</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="flex-item">
-            <div class="img-item">
-                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
-            </div>
-            <div class="text-item">
-                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
-                <p class="ingredients">Ingrediencie: </p>
-                <p>
-                    <span class="bold">Priemerné hodnotenie: </span>
-                    <span>3/5</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="flex-item">
-            <div class="img-item">
-                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
-            </div>
-            <div class="text-item">
-                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
-                <p class="ingredients">Ingrediencie: </p>
-                <p>
-                    <span class="bold">Priemerné hodnotenie: </span>
-                    <span>2/5</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="flex-item">
-            <div class="img-item">
-                <a href="<?= $link->url("home.recept") ?>"><img src="../../../public/images/cake.png" class="img" alt="chocolate cake"></a>
-            </div>
-            <div class="text-item">
-                <a class="recept-name" href="<?= $link->url("home.recept") ?>">Čokoládová torta</a>
-                <p class="ingredients">Ingrediencie: </p>
-                <p>
-                    <span class="bold">Priemerné hodnotenie: </span>
-                    <span>1/5</span>
-                </p>
-            </div>
+            <?php foreach ($data['recepts'] as $recept): ?>
+                <div class="img-item">
+                    <a href="<?= $link->url("home.recept, ['id' => $recept->getId()]") ?>"><img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="img" alt=""></a>
+                </div>
+                <div class="text-item">
+                    <a class="recept-name" href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><?= $recept->getName() ?></a>
+                    <div>
+                        <p class="ingredients">Ingrediencie: </p>
+                        <?= $recept->getIngredients() ?>
+                    </div>
+                    <p>
+                        <span class="bold">Priemerné hodnotenie: </span>
+                        <span>4/5</span>
+                    </p>
+                    <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
+                    <a href="<?= $link->url('recept.delete', ['id' => $recept->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

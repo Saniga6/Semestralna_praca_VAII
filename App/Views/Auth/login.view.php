@@ -8,11 +8,10 @@ $layout = 'auth';
 <div class="form-container">
     <form class="form-signing" method="post" action="<?php $link->url("login") ?>">
         <H2>Prihlásenie</H2>
-        <label for="email" class="no-margin">Email</label>
-        <input type="email" class="input-text form-input" id="email" placeholder="name@example.com">
+        <label for="text" class="no-margin">Email</label>
+        <input type="text" class="input-text form-input" id="email" placeholder="Meno">
         <label for="password" class="no-margin">Heslo</label>
         <input type="password" class="input-text form-input" id="password" placeholder="Heslo">
-        <a class="new-account">Registrácia</a>
         <button type="submit" class="btn btn-outline-light login-button">Prihlásenie</button>
     </form>
 </div>

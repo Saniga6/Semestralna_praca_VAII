@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Post;
+use App\Models\Recept;
 
 /**
  * Class HomeController
@@ -28,7 +30,11 @@ class HomeController extends AControllerBase
      */
     public function index(): Response
     {
-        return $this->html();
+        return $this->html(
+            [
+                'recepts' => Recept::getAll()
+            ]
+        );
     }
 
     /**
@@ -37,6 +43,14 @@ class HomeController extends AControllerBase
      */
     public function recept(): Response
     {
-        return $this->html();
+        $id = $this->request()->getValue('id');
+        $recept = Recept::getOne($id);
+
+        if ($recept == null) {
+            return throw new HTTPException(404);
+        }
+        return $this->html([
+            'recept' => $recept
+        ]);
     }
 }

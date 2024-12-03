@@ -1,10 +1,13 @@
 <?php
-
+/** @var \App\Core\LinkGenerator $link */
+/** @var Recept $recept */
 /** @var Array $data */
 
-/** @var \App\Core\LinkGenerator $link */
+use App\Helpers\FileStorage;
+
 ?>
 
+<?php $recept = \App\Models\Recept::getOne($data['recept']->getId()) ?>
 <div class="component-holder">
     <div class="row g-0 row-holder">
         <div class="col-md-4 col-sm-6">
@@ -16,13 +19,13 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="../../../public/images/cake.png" class="d-block w-100 image" alt="...">
+                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="../../../public/images/cake.png" class="d-block w-100 image" alt="...">
+                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="../../../public/images/cake.png" class="d-block w-100 image" alt="...">
+                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
