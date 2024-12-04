@@ -18,7 +18,7 @@
     color: black;
 }
 
-/* CSS for index.html */
+/* CSS for index.php */
 .flex-container {
     border-radius: 30px;
     padding-left: 5px;
@@ -136,7 +136,7 @@
     }
 }
 
-/* CSS for recept.html */
+/* CSS for recept.php */
 .image {
     width: 100%;
     height: auto;
@@ -162,12 +162,7 @@ h3 {
 .recept-text {
     border-radius: 10px;
     background-color:#ccc;
-    margin-left: 5px;
-}
-.recept-text::before {
-    content: "• ";
-    color: black;
-    margin-left: 10px;
+    margin: 10px;
 }
 
 .checked {
@@ -182,4 +177,11 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* CSS for form.view.php */
+.name-recept {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
 }

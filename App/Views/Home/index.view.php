@@ -19,8 +19,8 @@ use App\Models\Recept;
         </div>
     </div>
     <div class="flex-container">
+        <?php foreach ($data['recepts'] as $recept): ?>
         <div class="flex-item">
-            <?php foreach ($data['recepts'] as $recept): ?>
                 <div class="img-item">
                     <a href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="img" alt=""></a>
                 </div>
@@ -37,7 +37,7 @@ use App\Models\Recept;
                     <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
                     <a href="<?= $link->url('recept.delete', ['id' => $recept->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
                 </div>
-            <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </div>
 </div>

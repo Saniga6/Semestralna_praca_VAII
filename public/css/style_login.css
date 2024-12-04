@@ -47,3 +47,11 @@ form {
     padding-bottom: 30px;
 }
 
+.login-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
