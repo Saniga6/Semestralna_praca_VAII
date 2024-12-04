@@ -4,6 +4,7 @@
 /** @var Array $data */
 
 use App\Helpers\FileStorage;
+use App\Models\Recept;
 
 ?>
 
@@ -42,12 +43,11 @@ use App\Helpers\FileStorage;
             <div class="row g-0">
                 <div class="col-6">
                     <h3>Ingrediencie:</h3>
-                    <p class="recept-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim ipsum nec est laoreet luctus. Vivamus id tristique libero, a elementum sem. Maecenas ornare eleifend rhoncus. Sed in erat vel sapien luctus pellentesque condimentum ut justo. Donec ornare leo eget porta posuere. Phasellus vehicula turpis a nunc fringilla volutpat a vel dolor. Quisque pharetra pulvinar est sit amet placerat. Phasellus vitae vulputate augue. Integer molestie dolor quis nunc commodo, at euismod ex cursus. Quisque dolor neque, luctus dignissim hendrerit ac, euismod sit amet tortor. Etiam tincidunt, nulla quis ornare malesuada, ipsum orci efficitur elit, sed malesuada turpis ante in lacus. Morbi interdum eros sit amet tellus semper, eget sodales justo pretium.</p>
+                    <p class="recept-text"><?= $recept->getIngredients() ?></p>
                 </div>
                 <div class="col-6">
                     <h3>Recept:</h3>
-                    <p class="recept-text">Quisque quis ornare massa, at pharetra lacus. Suspendisse dignissim consequat massa, id blandit erat consectetur nec. Integer purus eros, eleifend ut sapien pellentesque, dictum viverra quam. Praesent aliquet nibh leo. Morbi euismod turpis eu arcu porttitor tincidunt. Maecenas porta nec nisl ac rhoncus. Nullam pretium, libero non viverra faucibus, purus felis dictum arcu, ut fringilla augue massa et nisl. Proin mattis est eu sem vulputate lobortis. Nulla lacinia tempor auctor. Aenean semper nulla et sapien varius, in facilisis leo porttitor. Vivamus varius mi malesuada, tempus neque pulvinar, sodales sem. Donec eu sem in orci bibendum hendrerit. Aenean et ante tempus, blandit nunc at, vulputate enim. Cras egestas maximus interdum.
-                    </p>
+                    <p class="recept-text"><?= $recept->getProcedure() ?></p>
                 </div>
             </div>
         </div>

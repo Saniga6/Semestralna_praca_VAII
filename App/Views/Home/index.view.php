@@ -22,7 +22,7 @@ use App\Models\Recept;
         <div class="flex-item">
             <?php foreach ($data['recepts'] as $recept): ?>
                 <div class="img-item">
-                    <a href="<?= $link->url("home.recept, ['id' => $recept->getId()]") ?>"><img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="img" alt=""></a>
+                    <a href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="img" alt=""></a>
                 </div>
                 <div class="text-item">
                     <a class="recept-name" href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><?= $recept->getName() ?></a>
