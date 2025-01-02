@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Core\Model;
 
 /**
- * @var $pictures array of string  - array of paths to pictures
+ * @var $image string - image of the recipe
  * @var $procedure string - procedure of making the recipe
  * @var $ingredients string - ingredients of the recipe
  * @var $name string - name of the recipe
@@ -17,6 +17,17 @@ class Recept extends Model
     protected ?string $ingredients = null;
     protected ?string $procedure = null;
     protected ?string $image = null;
+    protected ?string $category = null;
+
+    public function getCategories(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategories(?string $categories): void
+    {
+        $this->category = $categories;
+    }
     public function getId(): ?int
     {
         return $this->id;

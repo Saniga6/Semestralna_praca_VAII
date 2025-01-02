@@ -1,14 +1,19 @@
 <?php
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 /** @var Recept $recept */
 /** @var Array $data */
 
+use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
 use App\Models\Recept;
 
 ?>
 
-<?php $recept = \App\Models\Recept::getOne($data['recept']->getId()) ?>
+<?php try {
+    $recept = Recept::getOne($data['recept']->getId());
+} catch (Exception $e) {
+    echo $e->getMessage();
+} ?>
 <div class="component-holder">
     <div class="row g-0 row-holder">
         <div class="col-md-4 col-sm-6">

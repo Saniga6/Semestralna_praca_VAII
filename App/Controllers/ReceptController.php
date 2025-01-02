@@ -3,11 +3,12 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\HTTPException;
 use App\Core\Responses\RedirectResponse;
 use App\Core\Responses\Response;
 use App\Helpers\FileStorage;
-use App\Models\Post;
 use App\Models\Recept;
+use Exception;
 
 class ReceptController extends AControllerBase
 {
@@ -46,6 +47,10 @@ class ReceptController extends AControllerBase
         ]);
     }
 
+    /**
+     * @throws HTTPException
+     * @throws Exception
+     */
     public function save() : Response
     {
         $id = (int)$this->request()->getValue('id');
@@ -64,25 +69,14 @@ class ReceptController extends AControllerBase
         } else {
             $recept->setImage($oldFileName);
         }
+        if ($this->request()->getValue('categories') != null) {
+            $selectedCategories = $_POST['categories'] ?? [];
+            $categories = implode(",", $selectedCategories);
+            $recept->setCategories($categories);
+        }
         $recept->setName($this->request()->getValue('name'));
         $recept->setIngredients($this->request()->getValue('ingredients'));
         $recept->setProcedure($this->request()->getValue('procedure'));
-
-        /*$formErrors = $this->formErrors();
-        if (count($formErrors) > 0) {
-            return $this->html(
-                [
-                    'recept' => $recept,
-                    'errors' => $formErrors
-                ], 'add'
-            );
-        } else {
-            if ($oldFileName != "") {
-                FileStorage::deleteFile($oldFileName);
-            }
-            $newFileName = FileStorage::saveFile($this->request()->getFiles()['image']);
-            $recept->setPicture($newFileName);
-            $recept->save();*/
         $recept->save();
         return new RedirectResponse($this->url("home.index"));
     }
@@ -94,26 +88,5 @@ class ReceptController extends AControllerBase
         FileStorage::deleteFile($recept->getImage());
         $recept->delete();
         return $this->redirect($this->url('home.index'));
-    }
-
-    private function formErrors(): array
-    {
-        /*
-        $errors = [];
-        if ($this->request()->getFiles()['picture']['name'] == "") {
-            $errors[] = "Pole Súbor obrázka musí byť vyplnené!";
-        }
-        if ($this->request()->getValue('text') == "") {
-            $errors[] = "Pole Text príspevku musí byť vyplnené!";
-        }
-        if ($this->request()->getFiles()['picture']['name'] != "" && !in_array($this->request()->getFiles()['picture']['type'], ['image/jpeg', 'image/png'])) {
-            $errors[] = "Obrázok musí byť typu JPG alebo PNG!";
-        }
-        if ($this->request()->getValue('text') != "" && strlen($this->request()->getValue('text') < 5)) {
-            $errors[] = "Počet znakov v text príspevku musí byť viac ako 5!";
-        }
-        return $errors;
-        */
-        return [];
     }
 }

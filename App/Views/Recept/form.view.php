@@ -3,33 +3,99 @@
 
     <label for="name" class="name ingredients">Názov receptu</label>
     <div class="input-group has-validation mb-3">
-        <textarea class="name" aria-label="With textarea" name="name" id="recept-name"><?= @$data['recept']?->getName() ?></textarea>
+        <textarea class="name expand" aria-label="With textarea" name="name" id="recept-name" required><?= @$data['recept']?->getName() ?></textarea>
     </div>
 
     <label for="ingredients" class="ingredients">Zoznam ingrediencií</label>
     <div class="input-group has-validation mb-3">
-        <textarea class="ingredientos" aria-label="With textarea" name="ingredients" id="bulletTextarea"><?= empty(@$data['recept']?->getIngredients()) ? '• ' : @$data['recept']?->getIngredients() ?></textarea>
+        <textarea class="ingredientos expand" aria-label="With textarea" name="ingredients" id="bulletTextarea" required><?= empty(@$data['recept']?->getIngredients()) ? '• ' : @$data['recept']?->getIngredients() ?></textarea>
     </div>
 
     <label for="procedure" class="ingredients">Postup</label>
     <div class="input-group has-validation mb-3">
-        <textarea class="procedure" aria-label="With textarea" name="procedure" id="bulletTextarea"><?= empty(@$data['recept']?->getProcedure()) ? '• ' : @$data['recept']?->getProcedure() ?></textarea>
+        <textarea class="procedure expand" aria-label="With textarea" name="procedure" id="bulletTextarea" required><?= empty(@$data['recept']?->getProcedure()) ? '• ' : @$data['recept']?->getProcedure() ?></textarea>
+    </div>
+
+    <label for="categories" class="form-label">Kategórie</label>
+    <div id="categories">
+        <div>
+            <input type="checkbox" name="categories[]" id="category-1" value="Mäsité"
+                <?= in_array(1, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-1">Mäsité</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-2" value="Sladké"
+                <?= in_array(2, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-2">Sladké</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-3" value="Slané"
+                <?= in_array(3, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-3">Slané</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-4" value="Tradičné"
+                <?= in_array(4, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-4">Tradičné</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-5" value="Exotické"
+                <?= in_array(5, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-5">Exotické</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-6" value="Vegetariánske"
+                <?= in_array(6, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-4">Vegetariánske</label>
+        </div>
+        <div>
+            <input type="checkbox" name="categories[]" id="category-7" value="Vegánske"
+                <?= in_array(7, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
+            <label for="category-4">Vegánske</label>
+        </div>
     </div>
 
     <label for="image" class="form-label">Súbor obrázka</label>
     <?php if (@$data['recept']?->getImage() != ""): ?>
-        <input type="file" class="image" name="image" id="recept-image" accept="image/png, image/jpeg">
+        <input type="file" class="image" name="image" id="recept-image" accept="image/png, image/jpeg" required>
         <div>Pôvodný súbor: <?= substr($data['recept']->getImage(), strpos($data['recept']->getImage(), '-') + 1);
         @$data['recept']->setImage(@$data['recept']?->getImage())?></div>
     <?php else: ?>
-        <input type="file" class="image" name="image" id="recept-image" accept="image/png, image/jpeg">
+        <input type="file" class="image" name="image" id="recept-image" accept="image/png, image/jpeg" required>
     <?php endif; ?>
 
     <button type="submit" class="btn btn-primary">Uložiť</button>
 
     <script>
-        // Funkcia pre nastavenie odrážky po každom stlačení Enter tlačidla
+        // Funkcia na automatické prispôsobenie výšky
+        function autoExpandTextarea(textarea) {
+            textarea.style.height = "auto"; // Nastaví výšku na auto, aby sa textarea mohla zväčšiť
+            textarea.style.height = textarea.scrollHeight + "px"; // Nastaví výšku textarea na výšku obsahu
+        }
+
+        // Pridanie event listenera pre všetky textarea na stránke
+        document.addEventListener("input", function (event) {
+            if (event.target.tagName === "TEXTAREA") {
+                autoExpandTextarea(event.target);
+            }
+        });
+
+        // Inicializácia pri načítaní stránky (pre už existujúci obsah)
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("textarea").forEach(autoExpandTextarea);
+        });
+
+        document.getElementById("recept-name").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Zablokuje vloženie nového riadku
+            }
+        });
+    </script>
+
+    <script>
+        //Hľadanie všetkých textarea s id bulletTextarea
         document.querySelectorAll('#bulletTextarea').forEach(textarea => {
+            // Funkcia pre nastavenie odrážky po každom stlačení Enter tlačidla
             textarea.addEventListener('keydown', function(event) {
                 // Zabezpečenie, že prvá odrážka zostane neporušená
                 if (textarea.value === '• ' && event.key === 'Backspace') {
@@ -66,7 +132,7 @@
                     textarea.value = beforeCursor + '\n• ' + afterCursor;
 
                     // Nastaviť kurzor za odrážku
-                    textarea.selectionStart = textarea.selectionEnd = cursorPosition + 3;
+                    textarea.selectionStart = textarea.selectionEnd = cursorPosition + 4;
                 } else if (textarea.value === '' && event.key !== 'Backspace') {
                     // Ak je textarea prázdna, automaticky vložiť prvú odrážku
                     textarea.value = '• ';

@@ -32,7 +32,7 @@ class DummyAuthenticator implements IAuthenticator
      */
     public function login($login, $password): bool
     {
-        if ($login == $password) {
+        if ($login == self::LOGIN && password_verify($password, self::PASSWORD_HASH)) {
             $_SESSION['user'] = self::USERNAME;
             return true;
         } else {

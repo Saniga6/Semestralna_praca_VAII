@@ -1,13 +1,18 @@
 <?php
 
 /** @var string $contentHTML */
-/** @var \App\Core\IAuthenticator $auth */
-/** @var \App\Core\LinkGenerator $link */
+/** @var IAuthenticator $auth */
+/** @var LinkGenerator $link */
+
+use App\Config\Configuration;
+use App\Core\IAuthenticator;
+use App\Core\LinkGenerator;
+
 ?>
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <title><?= \App\Config\Configuration::APP_NAME ?></title>
+    <title><?= Configuration::APP_NAME ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -19,12 +24,14 @@
 <body>
 
 <nav class="navbar">
-    <?php if (str_contains($_SERVER['REQUEST_URI'], 'recept.add') !== false): ?>
+    <?php if (str_contains($_SERVER['REQUEST_URI'], '/?c=recept&a=add') !== false): ?>
         <div class="container-fluid">
+            <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
             <span class="navbar-brand">Pridaj nový recept</span>
         </div>
-    <?php elseif (str_contains($_SERVER['REQUEST_URI'], 'recept.edit') !== false): ?>
+    <?php elseif (str_contains($_SERVER['REQUEST_URI'], '/?c=recept&a=edit') !== false): ?>
         <div class="container-fluid">
+            <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
             <span class="navbar-brand">Aktualizuj recept</span>
         </div>
     <?php else: ?>
@@ -32,7 +39,12 @@
         <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
         <a class="bi bi-envelope filter-all-text" href="<?= $link->url("recept.add") ?>"> Pridať</a>
         <span class="navbar-brand">Receptár</span>
-        <a class="bi bi-box-arrow-in-right" href="<?= \App\Config\Configuration::LOGIN_URL ?>"> Prihlásenie</a>
+        <?php if ($auth->isLogged()): ?>
+            <span class="navbar-text">Prihlásený používateľ: <?= $auth->getLoggedUserName() ?></span>
+            <a class="bi bi-box-arrow-right" href="<?= $link->url("auth.logout") ?>"> Odhlásenie</a>
+        <?php else:?>
+        <a class="bi bi-box-arrow-in-right" href="<?= Configuration::LOGIN_URL ?>"> Prihlásenie</a>
+        <?php endif; ?>
     </div>
     <?php endif; ?>
 </nav>
