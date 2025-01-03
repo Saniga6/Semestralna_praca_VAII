@@ -18,6 +18,7 @@ class Recept extends Model
     protected ?string $procedure = null;
     protected ?string $image = null;
     protected ?string $category = null;
+    protected ?string $user_name = null;
 
     public function getCategories(): ?string
     {
@@ -78,5 +79,14 @@ class Recept extends Model
         $this->image = $image;
     }
 
+    public function getUserName(): ?string
+    {
+        return $this->user_name;
+    }
+
+    public function setUserName(?string $user_name): void
+    {
+        $this->user_name = $user_name;
+    }
 }
 

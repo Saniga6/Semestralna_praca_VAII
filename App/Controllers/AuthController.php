@@ -6,6 +6,7 @@ use App\Config\Configuration;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Core\Responses\ViewResponse;
+use Exception;
 
 /**
  * Class AuthController
@@ -26,6 +27,7 @@ class AuthController extends AControllerBase
     /**
      * Login a user
      * @return Response
+     * @throws Exception
      */
     public function login(): Response
     {
@@ -39,6 +41,21 @@ class AuthController extends AControllerBase
         }
 
         $data = ($logged === false ? ['message' => 'Zlý login alebo heslo!'] : []);
+        return $this->html($data);
+    }
+
+    public function registration() : Response
+    {
+        $formData = $this->app->getRequest()->getPost();
+        $registered = null;
+        if (isset($formData['submit'])) {
+            $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
+            if ($logged) {
+                return $this->redirect($this->url("login"));
+            }
+        }
+
+        $data = ($registered === false ? ['message' => 'Zlý login alebo heslo!'] : []);
         return $this->html($data);
     }
 

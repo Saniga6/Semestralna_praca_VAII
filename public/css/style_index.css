@@ -56,6 +56,12 @@
     color: black;
 }
 
+.user_name {
+    font-weight: bold;
+    line-height: 1rem;
+    margin-right: 10px;
+}
+
 .ingredients {
     font-weight: bold;
     line-height: 1rem;

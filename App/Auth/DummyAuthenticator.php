@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Core\IAuthenticator;
+use Exception;
 
 /**
  * Class DummyAuthenticator
@@ -28,7 +29,7 @@ class DummyAuthenticator implements IAuthenticator
      * @param $login
      * @param $password
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function login($login, $password): bool
     {
@@ -54,11 +55,11 @@ class DummyAuthenticator implements IAuthenticator
     /**
      * Get the name of the logged-in user
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getLoggedUserName(): string
     {
-        return isset($_SESSION['user']) ? $_SESSION['user'] : throw new \Exception("User not logged in");
+        return isset($_SESSION['user']) ? $_SESSION['user'] : throw new Exception("User not logged in");
     }
 
     /**

@@ -17,41 +17,68 @@
     </div>
 
     <label for="categories" class="form-label">Kategórie</label>
+    <?php
+    function isChecked(string $value, string $categories): string {
+        $arrayCategory = explode(",", $categories);
+        return in_array($value, $arrayCategory) ? 'checked' : '';
+    }
+    ?>
     <div id="categories">
         <div>
+            <label for="category-1">Mäsité
             <input type="checkbox" name="categories[]" id="category-1" value="Mäsité"
-                <?= in_array(1, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-1">Mäsité</label>
+                <?php if(!empty($data)){
+                    isChecked("Mäsité", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-2">Sladké
             <input type="checkbox" name="categories[]" id="category-2" value="Sladké"
-                <?= in_array(2, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-2">Sladké</label>
+                <?php if(!empty($data)){
+                    isChecked("Sladké", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-3">Slané
             <input type="checkbox" name="categories[]" id="category-3" value="Slané"
-                <?= in_array(3, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-3">Slané</label>
+                <?php if(!empty($data)){
+                    isChecked("Slané", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-4">Tradičné
             <input type="checkbox" name="categories[]" id="category-4" value="Tradičné"
-                <?= in_array(4, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-4">Tradičné</label>
+                <?php if(!empty($data)){
+                    isChecked("Tradičné", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-5">Exotické
             <input type="checkbox" name="categories[]" id="category-5" value="Exotické"
-                <?= in_array(5, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-5">Exotické</label>
+                <?php if(!empty($data)){
+                    isChecked("Exotické", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-6">Vegetariánske
             <input type="checkbox" name="categories[]" id="category-6" value="Vegetariánske"
-                <?= in_array(6, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-4">Vegetariánske</label>
+                <?php if(!empty($data)){
+                    isChecked("Vegetariánske", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
         <div>
+            <label for="category-7">Vegánske
             <input type="checkbox" name="categories[]" id="category-7" value="Vegánske"
-                <?= in_array(7, @$data['selectedCategories'] ?? []) ? 'checked' : '' ?>>
-            <label for="category-4">Vegánske</label>
+                <?php if(!empty($data)){
+                    isChecked("Vegánske", @$data['recept']?->getCategories());
+                }?>
+            </label>
         </div>
     </div>
 

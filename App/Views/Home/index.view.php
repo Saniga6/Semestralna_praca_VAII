@@ -34,8 +34,10 @@ use App\Models\Recept;
                         <span class="bold">Priemerné hodnotenie: </span>
                         <span>4/5</span>
                     </p>
+                    <?php if ($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) : ?>
                     <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
                     <a href="<?= $link->url('recept.delete', ['id' => $recept->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
+                    <?php endif; ?>
                 </div>
         </div>
         <?php endforeach; ?>

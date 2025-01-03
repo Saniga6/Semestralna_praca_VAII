@@ -55,3 +55,27 @@ form {
     cursor: pointer;
 }
 
+.notification {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f44336;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -20px);
+}
+

@@ -38,9 +38,9 @@ use App\Core\LinkGenerator;
     <div class="container-fluid">
         <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
         <a class="bi bi-envelope filter-all-text" href="<?= $link->url("recept.add") ?>"> Pridať</a>
-        <span class="navbar-brand">Receptár</span>
+        <span>Receptár</span>
         <?php if ($auth->isLogged()): ?>
-            <span class="navbar-text">Prihlásený používateľ: <?= $auth->getLoggedUserName() ?></span>
+            <div class="user_name">Prihlásený používateľ: <?= $auth->getLoggedUserName() ?></div>
             <a class="bi bi-box-arrow-right" href="<?= $link->url("auth.logout") ?>"> Odhlásenie</a>
         <?php else:?>
         <a class="bi bi-box-arrow-in-right" href="<?= Configuration::LOGIN_URL ?>"> Prihlásenie</a>

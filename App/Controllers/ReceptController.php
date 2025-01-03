@@ -12,16 +12,27 @@ use Exception;
 
 class ReceptController extends AControllerBase
 {
+    /**
+     * @throws Exception
+     */
     public function authorize($action): bool
     {
         switch ($action) {
             case 'add':
-            case 'edit':
+                return $this->app->getAuth()->isLogged();
             case 'delete':
+            case 'edit':
+                $recept = Recept::getOne($this->request()->getValue('id'));
+                return $this->app->getAuth()->getLoggedUserId() == $recept->getUserName();
             default:
                 return true;
         }
+        return true;
     }
+
+    /**
+     * @throws Exception
+     */
     public function index() : Response
     {
         return $this->html([
@@ -34,6 +45,10 @@ class ReceptController extends AControllerBase
         return $this->html([]);
     }
 
+    /**
+     * @throws HTTPException
+     * @throws Exception
+     */
     public function edit() : Response
     {
         $id = $this->request()->getValue('id');
@@ -74,13 +89,29 @@ class ReceptController extends AControllerBase
             $categories = implode(",", $selectedCategories);
             $recept->setCategories($categories);
         }
+        $recept->setUserName($this->app->getAuth()->getLoggedUserId());
         $recept->setName($this->request()->getValue('name'));
         $recept->setIngredients($this->request()->getValue('ingredients'));
+        if (!str_starts_with($recept->getIngredients(), '•')) {
+            $recept->setIngredients('• ' . $recept->getIngredients());
+        }
         $recept->setProcedure($this->request()->getValue('procedure'));
+        if (!str_starts_with($recept->getProcedure(), '•')) {
+            $recept->setProcedure('• ' . $recept->getProcedure());
+        }
         $recept->save();
         return new RedirectResponse($this->url("home.index"));
     }
 
+    public function setToArray($category): array
+    {
+        $categories = explode(",", $category);
+        return $categories;
+    }
+
+    /**
+     * @throws Exception
+     */
     public function delete() : Response
     {
         $id = $this->request()->getValue('id');

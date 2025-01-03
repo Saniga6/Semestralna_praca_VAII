@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Auth;
+use App\Models\User;
 
 class Authenticator extends DummyAuthenticator
 {
     public function login($login, $password): bool
     {
-        if ($login == $password) {
-            $_SESSION['user'] = $login;
-            return true;
-        } else {
-            return false;
+        $users = User::getAll();
+        foreach ($users as $user) {
+            if ($login == $user->getName() && $password == $user->getPassword()) {
+                $_SESSION['user'] = $login;
+                return true;
+            }
         }
+
+        return false;
     }
 
 }
