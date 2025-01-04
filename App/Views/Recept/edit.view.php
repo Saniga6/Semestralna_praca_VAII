@@ -1,6 +1,9 @@
 <?php
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 /** @var Array $data */
+
+use App\Core\LinkGenerator;
+
 ?>
 
 <div class="container">

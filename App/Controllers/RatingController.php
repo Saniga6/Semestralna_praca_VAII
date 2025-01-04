@@ -12,12 +12,10 @@ class RatingController extends AControllerBase
 
     public function authorize($action): bool
     {
-        switch ($action) {
-            case 'save':
-                return $this->app->getAuth()->isLogged();
-            default:
-                return true;
-        }
+        return match ($action) {
+            'save' => $this->app->getAuth()->isLogged(),
+            default => true,
+        };
     }
     /**
      * @throws Exception
@@ -40,6 +38,6 @@ class RatingController extends AControllerBase
         $rating->setRating($this->request()->getValue('rating'));
         $rating->setReceptId($this->request()->getValue('recept_id'));
         $rating->save();
-        return $this->redirect('home.recept', ['id' => $rating->getReceptId()]);
+        return $this->html();
     }
 }

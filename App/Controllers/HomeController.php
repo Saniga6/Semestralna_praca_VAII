@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\HTTPException;
 use App\Core\Responses\Response;
-use App\Models\Post;
+use App\Core\Responses\ViewResponse;
 use App\Models\Recept;
+use Exception;
 
 /**
  * Class HomeController
@@ -19,14 +21,15 @@ class HomeController extends AControllerBase
      * @param $action
      * @return bool
      */
-    public function authorize($action)
+    public function authorize($action) : bool
     {
         return true;
     }
 
     /**
      * Example of an action (authorization needed)
-     * @return \App\Core\Responses\Response|\App\Core\Responses\ViewResponse
+     * @return Response
+     * @throws Exception
      */
     public function index(): Response
     {
@@ -39,7 +42,8 @@ class HomeController extends AControllerBase
 
     /**
      * Example of an action accessible without authorization
-     * @return \App\Core\Responses\ViewResponse
+     * @return ViewResponse
+     * @throws Exception
      */
     public function recept(): Response
     {

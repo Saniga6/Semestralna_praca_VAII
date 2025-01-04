@@ -1,10 +1,11 @@
 <?php
 
 use App\Config\Configuration;
+use App\Core\LinkGenerator;
 
 $layout = 'auth';
 /** @var Array $data */
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 ?>
 <div class="form-container">
     <form class="form-signing" method="post" action="<?php

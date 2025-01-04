@@ -27,7 +27,6 @@ class ReceptController extends AControllerBase
             default:
                 return true;
         }
-        return true;
     }
 
     /**
@@ -101,12 +100,6 @@ class ReceptController extends AControllerBase
         }
         $recept->save();
         return new RedirectResponse($this->url("home.index"));
-    }
-
-    public function setToArray($category): array
-    {
-        $categories = explode(",", $category);
-        return $categories;
     }
 
     /**
