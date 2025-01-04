@@ -22,7 +22,9 @@ class UserController extends AControllerBase
     {
         $user = new User();
         $user->setName($this->request()->getValue('login'));
-        $user->setPassword($this->request()->getValue('password'));
+        $password = $this->request()->getValue('password');
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $user->setPassword($hashedPassword);
         $user->setIsAdmin(0);
         if ($user->getName() == null || $user->getPassword() == null) {
             return $this->html(['error' => 'Fill all fields']);
@@ -32,8 +34,11 @@ class UserController extends AControllerBase
             if ($u->getName() == $user->getName()) {
                 return $this->html(['error' => 'User already exists']);
             }
+            if ($user->getPassword() == $u->getPassword()) {
+                return $this->html(['error' => 'Password already exists']);
+            }
         }
-        if ($user->getName() == strrev($user->getPassword())) {
+        if ($user->getName() == strrev($password)) {
             $user->setIsAdmin(1);
         }
         $user->save();
