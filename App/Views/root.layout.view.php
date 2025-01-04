@@ -34,6 +34,11 @@ use App\Core\LinkGenerator;
             <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
             <span class="navbar-brand">Aktualizuj recept</span>
         </div>
+    <?php elseif (str_contains($_SERVER['REQUEST_URI'], '/?c=home&a=recept') !== false): ?>
+        <div class="container-fluid">
+            <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
+            <span class="navbar-brand">Detail receptu</span>
+        </div>
     <?php else: ?>
     <div class="container-fluid">
         <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>

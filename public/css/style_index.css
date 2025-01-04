@@ -46,6 +46,7 @@
 }
 
 .img-item {
+    flex-shrink: 0;
     margin-right: 10px;
 }
 
@@ -95,7 +96,9 @@
 }
 
 .img {
-    width: 100%;
+    width: auto;
+    max-width: 200px; /* Prispôsobte podľa potreby */
+    height: auto;
     border-radius: 20px;
 }
 
@@ -106,11 +109,19 @@
     }
 
     .img-item {
-        width: 20vw;
+        flex-shrink: 1;
+        width: 30vw;
     }
 
     .container-fluid > span {
         font-size: 1.5rem;
+    }
+
+    .img {
+        width: 100%;
+        max-width: 100%;
+        min-width: 150px;
+        height: auto;
     }
 }
 
@@ -121,7 +132,8 @@
     }
 
     .img-item {
-        width: 20vw;
+        flex-shrink: 1;
+        width: 25vw;
         height: auto;
     }
 
@@ -139,6 +151,13 @@
 
     .container-fluid > span {
         font-size: 1rem;
+    }
+
+    .img {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100px;
+        height: auto;
     }
 }
 

@@ -46,7 +46,7 @@ class AuthController extends AControllerBase
 
     public function registration() : Response
     {
-        $formData = $this->app->getRequest()->getPost();
+        /*$formData = $this->app->getRequest()->getPost();
         $registered = null;
         if (isset($formData['submit'])) {
             $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
@@ -55,8 +55,8 @@ class AuthController extends AControllerBase
             }
         }
 
-        $data = ($registered === false ? ['message' => 'Zlý login alebo heslo!'] : []);
-        return $this->html($data);
+        $data = ($registered === false ? ['message' => 'Zlý login alebo heslo!'] : []);*/
+        return $this->html();
     }
 
     /**

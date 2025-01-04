@@ -4,6 +4,7 @@
 /** @var Recept $recept */
 use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
+use App\Models\Rating;
 use App\Models\Recept;
 
 ?>
@@ -28,11 +29,28 @@ use App\Models\Recept;
                     <a class="recept-name" href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><?= $recept->getName() ?></a>
                     <div>
                         <p class="ingredients">Ingrediencie: </p>
-                        <?= $recept->getIngredients() ?>
+                        <ul>
+                            <?php
+                            $ingredients = explode("\n", $recept->getIngredients());
+                            foreach ($ingredients as $ingredient) {
+                                echo "<p>" .$ingredient. "</p>";
+                            }
+                            ?>
+                        </ul>
                     </div>
                     <p>
                         <span class="bold">Priemerné hodnotenie: </span>
-                        <span>4/5</span>
+                        <?php
+                        $finalRating = 0;
+                        $ratings = Rating::getAll($recept->getId());
+                        if (count($ratings) > 0) {
+                            foreach ($ratings as $rating) {
+                                $finalRating += $rating->getRating();
+                            }
+                            $finalRating = $finalRating / count($ratings);
+                        }
+                        echo "<span>".$finalRating."/5</span>";
+                        ?>
                     </p>
                     <?php if ($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) : ?>
                     <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>

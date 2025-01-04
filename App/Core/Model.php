@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Core\DB\Connection;
 use App\Helpers\Inflect;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -27,7 +28,7 @@ abstract class Model implements \JsonSerializable
      * @param int|null $limit
      * @param int|null $offset
      * @return static[]
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getAll(
         ?string $whereClause = null,
@@ -60,14 +61,14 @@ abstract class Model implements \JsonSerializable
             }
             return $models;
         } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }
     }
 
     /**
      * Connect to DB
      * @return null
-     * @throws \Exception
+     * @throws Exception
      */
     private static function connect(): void
     {
@@ -77,11 +78,17 @@ abstract class Model implements \JsonSerializable
     /**
      * Get table name from model class name
      * @return string
+     * @throws Exception
      */
+    //Spravil som upravu metódy aby som zistil či je názov tabuľky validný
     public static function getTableName(): string
     {
         $arr = explode("\\", get_called_class());
-        return Inflect::pluralize(strtolower(end($arr)));
+        $tableName = Inflect::pluralize(strtolower(end($arr)));
+        if (!preg_match('/[a-z0-9_]+/', $tableName)) {
+            throw new Exception('Invalid table name' . $tableName);
+        }
+        return $tableName;
     }
 
     /**
@@ -97,7 +104,7 @@ abstract class Model implements \JsonSerializable
      * Gets one model by primary key
      * @param $id
      * @return static|null
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getOne($id): ?static
     {
@@ -117,7 +124,7 @@ abstract class Model implements \JsonSerializable
             }
             return $model;
         } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -133,7 +140,7 @@ abstract class Model implements \JsonSerializable
     /**
      * Save the current model to DB (if model id is set, update it, else create a new model)
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function save(): void
     {
@@ -164,14 +171,14 @@ abstract class Model implements \JsonSerializable
                 $stmt->execute($data);
             }
         } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }
     }
 
     /**
      * Get array of column names from the associated model table
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getDbColumns(): array
     {
@@ -186,13 +193,13 @@ abstract class Model implements \JsonSerializable
             self::$dbColumns[static::class] = array_column($stmt->fetchAll(), 'Field');
             return self::$dbColumns[static::class];
         } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }
     }
 
     /**
      * Delete current model from DB
-     * @throws \Exception If model not exists, throw an exception
+     * @throws Exception If model not exists, throw an exception
      */
     public function delete()
     {
@@ -205,10 +212,10 @@ abstract class Model implements \JsonSerializable
             $stmt = self::$connection->prepare($sql);
             $stmt->execute([$this->{static::getPkColumnName()}]);
             if ($stmt->rowCount() == 0) {
-                throw new \Exception('Model not found!');
+                throw new Exception('Model not found!');
             }
         } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -228,10 +235,10 @@ abstract class Model implements \JsonSerializable
      * @param string $name
      * @param $value
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function __set(string $name, $value): void
     {
-        throw new \Exception("Attribute `$name` doesn't exist in the model " . get_called_class() . ".");
+        throw new Exception("Attribute `$name` doesn't exist in the model " . get_called_class() . ".");
     }
 }
