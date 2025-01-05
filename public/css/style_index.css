@@ -214,3 +214,20 @@ h3 {
 .expand {
     width: 100%;
 }
+
+/* CSS for rating */
+.rating {
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.bi-star-fill {
+    font-size: 2rem;
+    color: #ccc;
+    transition: color 0.2s ease-in-out;
+}
+
+.bi-star-fill.hovered,
+.bi-star-fill.selected {
+    color: gold;
+}

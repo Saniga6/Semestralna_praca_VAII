@@ -42,17 +42,21 @@ use App\Models\Recept;
                         <span class="bold">Priemerné hodnotenie: </span>
                         <?php
                         $finalRating = 0;
+                        $successCount = 0;
                         $ratings = Rating::getAll($recept->getId());
                         if (count($ratings) > 0) {
                             foreach ($ratings as $rating) {
-                                $finalRating += $rating->getRating();
+                                if ($recept->getId() == $rating->getReceptId()) {
+                                    $finalRating += $rating->getRating();
+                                    $successCount++;
+                                }
                             }
-                            $finalRating = $finalRating / count($ratings);
+                            $finalRating = $finalRating / $successCount;
                         }
-                        echo "<span>".$finalRating."/5</span>";
+                        echo "<span>".number_format($finalRating, 2)."/5.00</span>";
                         ?>
                     </p>
-                    <?php if ($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) : ?>
+                    <?php if (($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) || $_SESSION['admin'] == 1) : ?>
                     <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
                     <a href="<?= $link->url('recept.delete', ['id' => $recept->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
                     <?php endif; ?>

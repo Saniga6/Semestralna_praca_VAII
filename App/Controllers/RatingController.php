@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\LinkGenerator;
 use App\Core\Responses\Response;
 use App\Models\Rating;
 use Exception;
@@ -35,9 +36,22 @@ class RatingController extends AControllerBase
     public function save() : Response
     {
         $rating = new Rating();
-        $rating->setRating($this->request()->getValue('rating'));
-        $rating->setReceptId($this->request()->getValue('recept_id'));
+        $ratingValue = $this->request()->getValue('rating');
+        $receptId = $this->request()->getValue('recept_id');
+        $ratings = Rating::getAll();
+        foreach ($ratings as $rat) {
+            if ($rat->getUserName() == $_SESSION['user'] && $rat->getReceptId() == $receptId) {
+                echo "Už ste hodnotili tento recept!";
+                return $this->redirect($this->url('home.recept', ['id' => $receptId]));
+            }
+        }
+        if ($ratingValue < 1 || $ratingValue > 5) {
+            return $this->redirect($this->url('home.recept', ['id' => $receptId]));
+        }
+        $rating->setRating($ratingValue);
+        $rating->setReceptId($receptId);
+        $rating->setUserName($_SESSION['user']);
         $rating->save();
-        return $this->html();
+        return $this->redirect($this->url('home.recept', ['id' => $receptId]));
     }
 }

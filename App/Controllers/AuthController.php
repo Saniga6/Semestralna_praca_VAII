@@ -46,16 +46,6 @@ class AuthController extends AControllerBase
 
     public function registration() : Response
     {
-        /*$formData = $this->app->getRequest()->getPost();
-        $registered = null;
-        if (isset($formData['submit'])) {
-            $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
-            if ($logged) {
-                return $this->redirect($this->url("login"));
-            }
-        }
-
-        $data = ($registered === false ? ['message' => 'Zlý login alebo heslo!'] : []);*/
         return $this->html();
     }
 

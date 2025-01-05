@@ -48,27 +48,79 @@ use App\Models\Recept;
             <div class="row g-0">
                 <div class="col-6">
                     <h3>Ingrediencie:</h3>
-                    <p class="recept-text"><?= $recept->getIngredients() ?></p>
+                    <ul>
+                        <?php
+                        $ingredients = explode("\n", $recept->getIngredients());
+                        foreach ($ingredients as $ingredient) {
+                            echo "<p>" .$ingredient. "</p>";
+                        }
+                        ?>
+                    </ul>
                 </div>
                 <div class="col-6">
                     <h3>Recept:</h3>
-                    <p class="recept-text"><?= $recept->getProcedure() ?></p>
+                    <ul>
+                        <?php
+                        $procedures = explode("\n", $recept->getProcedure());
+                        foreach ($procedures as $procedure) {
+                            echo "<p>" .$procedure. "</p>";
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="rating">
-    <span class="bi-star-fill checked"></span>
-    <span class="bi-star-fill checked"></span>
-    <span class="bi-star-fill checked"></span>
-    <span class="bi-star-fill"></span>
-    <span class="bi-star-fill"></span>
-</div>
+<form method="post" action="<?= $link->url("rating.save") ?>">
+    <div class="rating" id="rating">
+        <?php for ($i = 1; $i <= 5; $i++): ?>
+            <span class="bi-star-fill" data-value="<?= $i ?>"></span>
+        <?php endfor; ?>
+    </div>
 
-<div class="button">
-    <button type="button" class="btn btn-outline-primary">Poslať</button>
-</div>
+    <input type="hidden" name="rating" id="rating-value">
+    <input type="hidden" name="recept_id" value="<?= $recept->getId() ?>">
+    <div class="button">
+        <button type="submit" class="btn btn-outline-primary">Poslať</button>
+    </div>
+</form>
+
+<script>
+    const stars = document.querySelectorAll('.bi-star-fill');
+    const ratingValue = document.getElementById('rating-value');
+
+    let currentRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', () => {
+            const value = parseInt(star.dataset.value);
+
+            // Zvýraznenie hviezd
+            stars.forEach((s, i) => {
+                s.classList.toggle('hovered', i < value);
+            });
+        });
+
+        star.addEventListener('mouseout', () => {
+            // Zrušenie zvýraznenia hviezd
+            stars.forEach(s => s.classList.remove('hovered'));
+        });
+
+        star.addEventListener('click', () => {
+            const value = parseInt(star.dataset.value);
+            currentRating = value;
+
+            // Zamknutie vybraných hviezd
+            stars.forEach((s, i) => {
+                s.classList.toggle('selected', i < value);
+            });
+
+            // Uloženie hodnotenia do skrytého inputu
+            ratingValue.value = currentRating;
+        });
+    });
+</script>
 
 <script src="/js_bootstrap/bootstrap.bundle.min.js"></script>

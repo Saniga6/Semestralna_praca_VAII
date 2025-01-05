@@ -7,6 +7,7 @@
 use App\Config\Configuration;
 use App\Core\IAuthenticator;
 use App\Core\LinkGenerator;
+use App\Models\Recept;
 
 ?>
 <!DOCTYPE html>
@@ -37,7 +38,15 @@ use App\Core\LinkGenerator;
     <?php elseif (str_contains($_SERVER['REQUEST_URI'], '/?c=home&a=recept') !== false): ?>
         <div class="container-fluid">
             <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
-            <span class="navbar-brand">Detail receptu</span>
+            <?php $receptId = $_GET['id'];
+            $recepts = Recept::getAll();
+            foreach ($recepts as $recept) {
+                if ($recept->getId() == $receptId) {
+                    echo '<span class="navbar-brand">'.$recept->getName().'</span>';
+                    break;
+                }
+            }
+            ?>
         </div>
     <?php else: ?>
     <div class="container-fluid">
@@ -45,9 +54,12 @@ use App\Core\LinkGenerator;
         <?php if ($auth->isLogged()):?>
         <a class="bi bi-envelope filter-all-text" href="<?= $link->url("recept.add") ?>"> Pridať</a>
         <?php endif; ?>
+        <?php if ($_SESSION['admin'] == 1): ?>
+            <a class="bi bi-envelope filter-all-text" href="<?= $link->url("admin.index") ?>"> Admin</a>
+        <?php endif; ?>
         <span>Receptár</span>
         <?php if ($auth->isLogged()): ?>
-            <div class="user_name">Prihlásený používateľ: <?= $auth->getLoggedUserName() ?></div>
+            <div class="user_name">Prihlásený používateľ: <?= $_SESSION['admin'] == 1 ? $auth->getLoggedUserName() ."-admin" : $auth->getLoggedUserName() ?></div>
             <a class="bi bi-box-arrow-right" href="<?= $link->url("auth.logout") ?>"> Odhlásenie</a>
         <?php else:?>
         <a class="bi bi-box-arrow-in-right" href="<?= Configuration::LOGIN_URL ?>"> Prihlásenie</a>
