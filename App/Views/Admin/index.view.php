@@ -15,6 +15,7 @@ use App\Models\User; ?>
                         <tr>
                             <th>ID</th>
                             <th>Meno</th>
+                            <th>Email</th>
                             <th>Admin</th>
                             <th>Možnosti</th>
                         </tr>
@@ -24,12 +25,19 @@ use App\Models\User; ?>
                             <?php $users = User::getAll();
                              foreach ($users as $user):?>
                             <td><?=$user->getUserId()?></td>
-                            <td><?=$user->getName()?></td>
-                            <td><?=$user->getIsAdmin() == 1 ? "Áno" : "Nie"?></td>
+                            <form method="post" action="<?= $link->url('admin.save', ['id' => $user->getUserId()]) ?>">
                             <td>
-                                <a href="<?= $link->url('admin.edit', ['id' => $user->getUserId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
+                                <input type="text" name="name" value="<?=$user->getName()?>">
+                            </td>
+                            <td><?=$user->getEmail()?></td>
+                            <td>
+                                <input type="checkbox" name="admin" <?=$user->getIsAdmin() == 1 ? 'Checked' : ''?>>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</button>
                                 <a href="<?= $link->url('admin.delete', ['id' => $user->getUserId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
                             </td>
+                            </form>
                         </tr>
                         <?php endforeach; ?>
                         </tbody>

@@ -54,7 +54,7 @@ use App\Models\Recept;
         <?php if ($auth->isLogged()):?>
         <a class="bi bi-envelope filter-all-text" href="<?= $link->url("recept.add") ?>"> Pridať</a>
         <?php endif; ?>
-        <?php if ($_SESSION['admin'] == 1): ?>
+        <?php if ($auth->isLogged() && $_SESSION['admin'] == 1): ?>
             <a class="bi bi-envelope filter-all-text" href="<?= $link->url("admin.index") ?>"> Admin</a>
         <?php endif; ?>
         <span>Receptár</span>

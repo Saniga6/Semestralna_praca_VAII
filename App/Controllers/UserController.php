@@ -23,6 +23,7 @@ class UserController extends AControllerBase
         $user = new User();
         $user->setName($this->request()->getValue('login'));
         $password = $this->request()->getValue('password');
+        $email = $this->request()->getValue('email');
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $user->setPassword($hashedPassword);
         $user->setIsAdmin(0);
@@ -40,6 +41,10 @@ class UserController extends AControllerBase
         }
         if ($user->getName() == strrev($password)) {
             $user->setIsAdmin(1);
+        }
+        $user->setEmail($email);
+        if ($user->getEmail() == null) {
+            return $this->html(['error' => 'Fill email field']);
         }
         $user->save();
         return new RedirectResponse($this->url("auth.login"));

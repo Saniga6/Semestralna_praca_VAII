@@ -8,6 +8,7 @@ class User extends Model
 {
     protected ?int $id = null;
     protected ?string $name = null;
+    protected ?string $email = null;
     protected ?string $password = null;
     protected ?int $is_admin = null;
 
@@ -46,5 +47,14 @@ class User extends Model
         $this->is_admin = $is_admin;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
 
 }

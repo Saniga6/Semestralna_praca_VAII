@@ -23,7 +23,7 @@ class ReceptController extends AControllerBase
             case 'delete':
             case 'edit':
                 $recept = Recept::getOne($this->request()->getValue('id'));
-                return $this->app->getAuth()->getLoggedUserId() == $recept->getUserName();
+                return ($this->app->getAuth()->getLoggedUserId() == $recept->getUserName()) || $_SESSION['admin'] == 1;
             default:
                 return true;
         }
