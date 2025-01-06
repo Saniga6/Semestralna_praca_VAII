@@ -1,6 +1,7 @@
 <?php
 
 /** @var \App\Core\IAuthenticator $auth */
+/** @var \App\Core\LinkGenerator $link */
 
 use App\Models\User; ?>
 
