@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\LinkGenerator;
+use App\Core\Responses\JsonResponse;
 use App\Core\Responses\Response;
 use App\Models\Rating;
 use Exception;
@@ -33,25 +34,44 @@ class RatingController extends AControllerBase
     /**
      * @throws Exception
      */
-    public function save() : Response
+    public function save() : JsonResponse
     {
-        $rating = new Rating();
-        $ratingValue = $this->request()->getValue('rating');
-        $receptId = $this->request()->getValue('recept_id');
+        $rawInput = file_get_contents('php://input');
+        $decodedInput = json_decode($rawInput, true);
+
+        $ratingValue = $decodedInput['rating'] ?? null;
+        $receptId = $decodedInput['recept_id'] ?? null;
+        $userName = $_SESSION['user'] ?? null;
+
+        if (!$userName) {
+            return new JsonResponse(['message' => "Používateľ nie je prihlásený."], 401);
+        }
+
+        // Overenie, či užívateľ už hlasoval
         $ratings = Rating::getAll();
         foreach ($ratings as $rat) {
-            if ($rat->getUserName() == $_SESSION['user'] && $rat->getReceptId() == $receptId) {
-                echo "Už ste hodnotili tento recept!";
-                return $this->redirect($this->url('home.recept', ['id' => $receptId]));
+            if ($rat->getUserName() == $userName && $rat->getReceptId() == $receptId) {
+                return new JsonResponse([
+                    'message' => "Už ste hodnotili tento recept.",
+                ], 200);
             }
         }
-        if ($ratingValue < 1 || $ratingValue > 5) {
-            return $this->redirect($this->url('home.recept', ['id' => $receptId]));
+
+        if (!is_numeric($ratingValue) || $ratingValue < 1 || $ratingValue > 5) {
+            return new JsonResponse([
+                'message' => "Hodnotenie musí byť medzi 1 a 5.",
+            ], 400);
         }
+
+        $rating = new Rating();
         $rating->setRating($ratingValue);
         $rating->setReceptId($receptId);
-        $rating->setUserName($_SESSION['user']);
+        $rating->setUserName($userName);
         $rating->save();
-        return $this->redirect($this->url('home.recept', ['id' => $receptId]));
+
+        // Vrátenie odpovede, že hodnotenie je možné
+        return new JsonResponse([
+            'message' => "Hodnotenie je možné odoslať.",
+        ], 200);
     }
 }

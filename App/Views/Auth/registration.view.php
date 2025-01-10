@@ -25,7 +25,7 @@ $layout = 'auth';
         <input name="password" type="password" class="input-text form-input form-control" id="password" placeholder="Password" required>
         <button type="submit" name="submit" class="btn btn-outline-light login-button">Registracia</button>
     </form>
-    <a href="<?= Configuration::HOME_URL ?>">
+    <a href="<?= Configuration::LOGIN_URL ?>">
         <button type="submit" class="back-button btn btn-outline-light">Naspäť</button>
     </a>
 </div>

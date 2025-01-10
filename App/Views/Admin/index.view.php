@@ -10,7 +10,6 @@ use App\Models\User; ?>
         <div class="col">
             <div>
                 <div class="container my-5">
-                    <h2>Admin Panel - Správa Používateľov</h2>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                         <tr>
@@ -27,9 +26,7 @@ use App\Models\User; ?>
                              foreach ($users as $user):?>
                             <td><?=$user->getUserId()?></td>
                             <form method="post" action="<?= $link->url('admin.save', ['id' => $user->getUserId()]) ?>">
-                            <td>
-                                <input type="text" name="name" value="<?=$user->getName()?>">
-                            </td>
+                            <td><?=$user->getName()?></td>
                             <td><?=$user->getEmail()?></td>
                             <td>
                                 <input type="checkbox" name="admin" <?=$user->getIsAdmin() == 1 ? 'Checked' : ''?>>

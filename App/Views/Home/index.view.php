@@ -14,8 +14,13 @@ use App\Models\Recept;
         <div class="filter-all-text">
             <p class="filter-name">Filtrovanie</p>
             <div class="filter-text">
-                <label for="option1"><input class="filter-text" type="checkbox" id="option1">Mäsité pokrmy</label>
-                <label for="option2"><input class="filter-text" type="checkbox" id="option2">Sladké pokrmy</label>
+                <label for="option1"><input class="filter-text" type="checkbox" id="option1" value="Mäsité">Mäsité pokrmy</label>
+                <label for="option2"><input class="filter-text" type="checkbox" id="option2" value="Sladké">Sladké pokrmy</label>
+                <label for="option3"><input class="filter-text" type="checkbox" id="option3" value="Slané">Slané pokrmy</label>
+                <label for="option4"><input class="filter-text" type="checkbox" id="option4" value="Tradičné">Tradičné pokrmy</label>
+                <label for="option5"><input class="filter-text" type="checkbox" id="option5" value="Exotické">Exotické pokrmy</label>
+                <label for="option6"><input class="filter-text" type="checkbox" id="option6" value="Vegetariánske">Vegetariánske pokrmy</label>
+                <label for="option7"><input class="filter-text" type="checkbox" id="option7" value="Vegánske">Vegánske pokrmy</label>
             </div>
         </div>
     </div>
@@ -53,7 +58,7 @@ use App\Models\Recept;
                             }
                             $finalRating = $finalRating / $successCount;
                         }
-                        echo "<span>".number_format($finalRating, 2)."/5.00</span>";
+                        echo "<span>".number_format($finalRating, 2)."/5</span>";
                         ?>
                     </p>
                     <?php if (($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) || ($auth->isLogged() && $_SESSION['admin'] == 1)) : ?>
@@ -65,3 +70,72 @@ use App\Models\Recept;
         <?php endforeach; ?>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('.filter-text');
+        const recipeContainer = document.querySelector('.flex-container');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                // Získajte vybrané kategórie
+                const selectedCategories = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.value);
+                const url = '<?= $link->url('home.filter') ?>';
+                // AJAX volanie na server
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ajax: 'filter_recipes',
+                        categories: selectedCategories
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Zmazanie starých receptov
+                        recipeContainer.innerHTML = '';
+
+                        // Zobrazenie nových receptov
+                        data.forEach(recipe => {
+                            const recipeDiv = document.createElement('div');
+                            recipeDiv.className = 'flex-item';
+                            const ingredientsList = recipe.ingredients.split('\n').map(ingredient => {
+                                return `<p>${ingredient}</p>`;
+                            }).join('');
+                            recipeDiv.innerHTML = `
+                            <div class="img-item">
+                                <a href="${recipe.url}">
+                                    <img src="${recipe.image}" class="img" alt="">
+                                </a>
+                            </div>
+                            <div class="text-item">
+                                <a class="recept-name" href="${recipe.url}">${recipe.name}</a>
+                                <div>
+                                    <p class="ingredients">Ingrediencie: </p>
+                                    <ul>
+                                        ${ingredientsList}
+                                    </ul>
+                                </div>
+                                <p>
+                                    <span class="bold">Priemerné hodnotenie: </span>
+                                    <span>${recipe.rating}/5.00</span>
+                                </p>
+                            <?php if (($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) || ($auth->isLogged() && $_SESSION['admin'] == 1)) : ?>
+                            <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
+                            <a href="<?= $link->url('recept.delete', ['id' => $recept->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať</a>
+                            <?php endif; ?>
+                            </div>
+                        `;
+
+                            recipeContainer.appendChild(recipeDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>

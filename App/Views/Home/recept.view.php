@@ -17,32 +17,7 @@ use App\Models\Recept;
 <div class="component-holder">
     <div class="row g-0 row-holder">
         <div class="col-md-4 col-sm-6">
-            <div id="carouselExampleIndicators" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="d-block w-100 image" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+                <img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="image" alt="...">
         </div>
         <div class="col-md-8 col-sm-10">
             <div class="row g-0">
@@ -73,7 +48,7 @@ use App\Models\Recept;
     </div>
 </div>
 
-<form method="post" action="<?= $link->url("rating.save") ?>">
+<form id="rating-form" method="post">
     <div class="rating" id="rating">
         <?php for ($i = 1; $i <= 5; $i++): ?>
             <span class="bi-star-fill" data-value="<?= $i ?>"></span>
@@ -85,6 +60,7 @@ use App\Models\Recept;
     <div class="button">
         <button type="submit" class="btn btn-outline-primary">Poslať</button>
     </div>
+    <div id="rating-message"></div>
 </form>
 
 <script>
@@ -96,6 +72,7 @@ use App\Models\Recept;
     stars.forEach(star => {
         star.addEventListener('mouseover', () => {
             const value = parseInt(star.dataset.value);
+            console.log(`Hover on star: ${star.dataset.value}`);
 
             // Zvýraznenie hviezd
             stars.forEach((s, i) => {
@@ -106,10 +83,12 @@ use App\Models\Recept;
         star.addEventListener('mouseout', () => {
             // Zrušenie zvýraznenia hviezd
             stars.forEach(s => s.classList.remove('hovered'));
+            console.log('Mouse out');
         });
 
         star.addEventListener('click', () => {
             const value = parseInt(star.dataset.value);
+            console.log(`Selected star: ${star.dataset.value}`);
             currentRating = value;
 
             // Zamknutie vybraných hviezd
@@ -117,9 +96,36 @@ use App\Models\Recept;
                 s.classList.toggle('selected', i < value);
             });
 
-            // Uloženie hodnotenia do skrytého inputu
             ratingValue.value = currentRating;
         });
+    });
+</script>
+
+<script>
+    document.getElementById('rating-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const ratingValue = currentRating;
+        const receptId = document.querySelector('[name="recept_id"]').value;
+
+        fetch('<?= $link->url("rating.save") ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                rating: ratingValue,
+                recept_id: receptId,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const messageContainer = document.getElementById('rating-message');
+                messageContainer.textContent = data.message;
+            })
+            .catch(error => {
+                console.error('Chyba pri overovaní hodnotenia:', error);
+            });
     });
 </script>
 

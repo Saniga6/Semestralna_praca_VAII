@@ -43,25 +43,15 @@ class AdminController extends AControllerBase
     {
         $id = $this->request()->getValue('id');
         $user = User::getOne($id);
-        $name = $this->request()->getValue('name');
         $admin = $this->request()->getValue('admin');
-        if ($name != $user->getName() || $admin != $user->getIsAdmin()) {
-            $to = $user->getEmail();
-            if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
-                echo 'Invalid email address.';
-            }
-            $subject = 'Your account has been updated';
-            $message = ($admin == 'on') ? 'You are now an admin' : 'You are no longer an admin';
-            $message .= ($name != $user->getName()) ? 'Your name has been changed to '.$name : '';
-            $headers = 'From: no-reply@gmail.com' . "\r\n";
-            mail($to, $subject, $message, $headers);
+        if ($admin == $user->getIsAdmin()) {
+            return $this->redirect($this->url('admin.index'));
         }
         if ($admin == 'on') {
             $admin = 1;
         } else {
             $admin = 0;
         }
-        $user->setName($name);
         $user->setIsAdmin($admin);
         $user->save();
         return $this->redirect($this->url('admin.index'));

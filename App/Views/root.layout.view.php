@@ -35,6 +35,11 @@ use App\Models\Recept;
             <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
             <span class="navbar-brand">Aktualizuj recept</span>
         </div>
+    <?php elseif (str_contains($_SERVER['REQUEST_URI'], '/?c=admin') !== false): ?>
+        <div class="container-fluid">
+            <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>
+            <span class="navbar-brand">Admin Panel - Správa Používateľov</span>
+        </div>
     <?php elseif (str_contains($_SERVER['REQUEST_URI'], '/?c=home&a=recept') !== false): ?>
         <div class="container-fluid">
             <a class="bi bi-house" href="<?= $link->url("home.index") ?>"> Home</a>

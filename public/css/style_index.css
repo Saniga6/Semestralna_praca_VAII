@@ -123,6 +123,10 @@
         min-width: 200px;
         height: auto;
     }
+
+    .user_name {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width: 600px) { /* Mobil */
@@ -156,8 +160,12 @@
     .img {
         width: 100%;
         max-width: 100%;
-        min-width: 100px;
+        min-width: 150px;
         height: auto;
+    }
+
+    .user_name {
+        font-size: 0.5rem;
     }
 }
 
@@ -167,7 +175,7 @@
     height: auto;
     max-height: 100%;
     object-fit: cover;
-    /*border-radius: 20px;*/
+    border-radius: 20px;
 }
 
 .component-holder {
