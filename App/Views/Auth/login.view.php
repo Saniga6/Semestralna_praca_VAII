@@ -2,7 +2,6 @@
 
 use App\Config\Configuration;
 use App\Core\LinkGenerator;
-
 $layout = 'auth';
 /** @var Array $data */
 /** @var LinkGenerator $link */

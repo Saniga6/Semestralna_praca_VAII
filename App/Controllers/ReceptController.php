@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\HTTPException;
-use App\Core\Responses\JsonResponse;
 use App\Core\Responses\RedirectResponse;
 use App\Core\Responses\Response;
 use App\Helpers\FileStorage;

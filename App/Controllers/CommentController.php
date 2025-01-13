@@ -3,10 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
-use App\Core\HTTPException;
 use App\Core\Responses\Response;
 use App\Models\Comment;
-use App\Models\Recept;
 use Exception;
 
 class CommentController extends AControllerBase
@@ -51,7 +49,6 @@ class CommentController extends AControllerBase
     {
         $id = $this->request()->getValue('id');
         $comment = Comment::getOne($id);
-        $comentar = $this->request()->getValue('comment');
         $comment->setComment($this->request()->getValue('comment'));
         $comment->save();
         return $this->redirect($this->url('home.recept', ['id' => $comment->getReceptId()]));

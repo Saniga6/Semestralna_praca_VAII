@@ -1,8 +1,10 @@
 <?php
 
-/** @var \App\Core\IAuthenticator $auth */
-/** @var \App\Core\LinkGenerator $link */
+/** @var IAuthenticator $auth */
+/** @var LinkGenerator $link */
 
+use App\Core\IAuthenticator;
+use App\Core\LinkGenerator;
 use App\Models\User; ?>
 
 <div class="container-fluid">

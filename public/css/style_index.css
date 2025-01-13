@@ -108,7 +108,7 @@
 
 .img {
     width: auto;
-    max-width: 200px; /* Prispôsobte podľa potreby */
+    max-width: 200px;
     height: auto;
     border-radius: 20px;
 }

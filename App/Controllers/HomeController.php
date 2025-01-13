@@ -51,8 +51,6 @@ class HomeController extends AControllerBase
 
             if (isset($input['ajax']) && $input['ajax'] === 'filter_recipes') {
                 $categories = $input['categories'];
-
-                // Získame všetky recepty
                 $allRecipes = Recept::getAll();
                 $filteredRecipes = [];
 

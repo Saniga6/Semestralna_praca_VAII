@@ -94,10 +94,10 @@
     <button type="submit" class="btn btn-primary">Uložiť</button>
 
     <script>
-        // Funkcia na automatické prispôsobenie výšky
+        // Funkcia na automatické prispôsobenie výšky textarea podľa obsahu
         function autoExpandTextarea(textarea) {
-            textarea.style.height = "auto"; // Nastaví výšku na auto, aby sa textarea mohla zväčšiť
-            textarea.style.height = textarea.scrollHeight + "px"; // Nastaví výšku textarea na výšku obsahu
+            textarea.style.height = "auto";
+            textarea.style.height = textarea.scrollHeight + "px";
         }
 
         // Pridanie event listenera pre všetky textarea na stránke
@@ -107,14 +107,9 @@
             }
         });
 
-        // Inicializácia pri načítaní stránky (pre už existujúci obsah)
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll("textarea").forEach(autoExpandTextarea);
-        });
-
         document.getElementById("recept-name").addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
-                event.preventDefault(); // Zablokuje vloženie nového riadku
+                event.preventDefault();
             }
         });
     </script>
