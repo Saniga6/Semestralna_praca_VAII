@@ -29,7 +29,9 @@ use App\Models\User; ?>
                             <td><?=$user->getName()?></td>
                             <td><?=$user->getEmail()?></td>
                             <td>
-                                <input type="checkbox" name="admin" <?=$user->getIsAdmin() == 1 ? 'Checked' : ''?>>
+                                <label>
+                                    <input type="checkbox" name="admin" <?=$user->getIsAdmin() == 1 ? 'Checked' : ''?>>
+                                </label>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</button>

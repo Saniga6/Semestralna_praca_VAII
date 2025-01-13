@@ -71,7 +71,7 @@ class RatingController extends AControllerBase
 
         // Vrátenie odpovede, že hodnotenie je možné
         return new JsonResponse([
-            'message' => "Hodnotenie je možné odoslať.",
+            'message' => "Hodnotenie sa odoslalo.",
         ], 200);
     }
 }

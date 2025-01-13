@@ -52,6 +52,9 @@ use App\Models\Recept;
                 }
             }
             ?>
+            <?php if ($auth->isLogged()): ?>
+            <div class="user_name">Prihlásený používateľ: <?= $_SESSION['admin'] == 1 ? $auth->getLoggedUserName() ."-admin" : $auth->getLoggedUserName() ?></div>
+            <?php endif; ?>
         </div>
     <?php else: ?>
     <div class="container-fluid">

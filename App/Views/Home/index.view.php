@@ -2,6 +2,9 @@
 /** @var LinkGenerator $link */
 /** @var Array $data */
 /** @var Recept $recept */
+/** @var IAuthenticator $auth */
+
+use App\Core\IAuthenticator;
 use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
 use App\Models\Rating;
@@ -11,21 +14,21 @@ use App\Models\Recept;
 
 <div class="grid-container">
     <div class="filter">
-        <div class="filter-all-text">
+        <div class="filter-container">
             <p class="filter-name">Filtrovanie</p>
-            <div class="filter-text">
-                <label for="option1"><input class="filter-text" type="checkbox" id="option1" value="Mäsité">Mäsité pokrmy</label>
-                <label for="option2"><input class="filter-text" type="checkbox" id="option2" value="Sladké">Sladké pokrmy</label>
-                <label for="option3"><input class="filter-text" type="checkbox" id="option3" value="Slané">Slané pokrmy</label>
-                <label for="option4"><input class="filter-text" type="checkbox" id="option4" value="Tradičné">Tradičné pokrmy</label>
-                <label for="option5"><input class="filter-text" type="checkbox" id="option5" value="Exotické">Exotické pokrmy</label>
-                <label for="option6"><input class="filter-text" type="checkbox" id="option6" value="Vegetariánske">Vegetariánske pokrmy</label>
-                <label for="option7"><input class="filter-text" type="checkbox" id="option7" value="Vegánske">Vegánske pokrmy</label>
+            <div class="filter-all-text">
+                <label class="filter-text" for="option1"><input class="filter-text" type="checkbox" id="option1" value="Mäsité">Mäsité pokrmy</label>
+                <label class="filter-text" for="option2"><input class="filter-text" type="checkbox" id="option2" value="Sladké">Sladké pokrmy</label>
+                <label class="filter-text" for="option3"><input class="filter-text" type="checkbox" id="option3" value="Slané">Slané pokrmy</label>
+                <label class="filter-text" for="option4"><input class="filter-text" type="checkbox" id="option4" value="Tradičné">Tradičné pokrmy</label>
+                <label class="filter-text" for="option5"><input class="filter-text" type="checkbox" id="option5" value="Exotické">Exotické pokrmy</label>
+                <label class="filter-text" for="option6"><input class="filter-text" type="checkbox" id="option6" value="Vegetariánske">Vegetariánske pokrmy</label>
+                <label class="filter-text" for="option7"><input class="filter-text" type="checkbox" id="option7" value="Vegánske">Vegánske pokrmy</label>
             </div>
         </div>
     </div>
     <div class="flex-container">
-        <?php foreach ($data['recepts'] as $recept): ?>
+        <?php foreach ($data['recepts'] as $recept):?>
         <div class="flex-item">
                 <div class="img-item">
                     <a href="<?= $link->url("home.recept", ['id' => $recept->getId()]) ?>"><img src="<?= FileStorage::UPLOAD_DIR . '/' . $recept->getImage() ?>" class="img" alt=""></a>
@@ -56,7 +59,9 @@ use App\Models\Recept;
                                     $successCount++;
                                 }
                             }
-                            $finalRating = $finalRating / $successCount;
+                            if ($successCount > 0) {
+                                $finalRating = $finalRating / $successCount;
+                            }
                         }
                         echo "<span>".number_format($finalRating, 2)."/5</span>";
                         ?>
@@ -122,7 +127,7 @@ use App\Models\Recept;
                                 </div>
                                 <p>
                                     <span class="bold">Priemerné hodnotenie: </span>
-                                    <span>${recipe.rating}/5.00</span>
+                                    <span>${recipe.rating}/5</span>
                                 </p>
                             <?php if (($auth->isLogged() && $auth->getLoggedUserName() == $recept->getUserName()) || ($auth->isLogged() && $_SESSION['admin'] == 1)) : ?>
                             <a href="<?= $link->url('recept.edit', ['id' => $recept->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil"></i> Upraviť</a>
@@ -130,7 +135,6 @@ use App\Models\Recept;
                             <?php endif; ?>
                             </div>
                         `;
-
                             recipeContainer.appendChild(recipeDiv);
                         });
                     })

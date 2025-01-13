@@ -2,10 +2,13 @@
 /** @var LinkGenerator $link */
 /** @var Recept $recept */
 /** @var Array $data */
+/** @var IAuthenticator $auth */
 
+use App\Core\IAuthenticator;
 use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
 use App\Models\Recept;
+use App\Models\Comment;
 
 ?>
 
@@ -60,8 +63,49 @@ use App\Models\Recept;
     <div class="button">
         <button type="submit" class="btn btn-outline-primary">Poslať</button>
     </div>
-    <div id="rating-message"></div>
+    <div id="rating-message" class="button"></div>
 </form>
+
+<div class="comments-section">
+    <form class="comment-form" action="<?= $link->url("comment.save") ?>" method="post">
+        <input type="hidden" name="recept_id" value="<?= $recept->getId() ?>">
+        <textarea class="comment" name="comment-text" placeholder="Napíš svoj komentár..."></textarea>
+        <button class="btn btn-primary" type="submit"><i class="bi bi-"></i> Poslať</button>
+    </form>
+    <?php
+    $comments = Comment::getAll();
+    foreach ($comments as $comment):
+    if ($comment->getReceptId() == $recept->getId()): ?>
+    <?php
+        $isEditable = false;
+        if ($auth->isLogged()) {
+            $isEditable = $auth->getLoggedUserId() == $comment->getUserName();
+        }
+        $isAdmin = false;
+        if ($isEditable) {
+            $isAdmin = $_SESSION['admin'] == 1;
+        }
+        if ($isEditable || $isAdmin): ?>
+            <div class="comment-section">
+                <form class="comment-form" method="post" action="<?= $link->url('comment.edit', ['id' => $comment->getId()]) ?>">
+                    <div class="comment-container">
+                        <textarea name="comment" class="comment"><?=$comment->getComment() ?></textarea>
+                        <div class="comment-actions">
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-pencil"></i> Upraviť</button>
+                            <a href="<?= $link->url('comment.delete', ['id' => $comment->getId()]) ?>" class="btn btn-danger"><i class="bi bi-trash"></i> Vymazať</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                <?php else: ?>
+            </div>--!>
+            <div class="comment-container">
+                <span class="comment-text"><?= $comment->getComment() ?></span>
+                <span class="comment-author">Komentoval: <?= $comment->getUserName() ?></span>
+            </div>
+                <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
 <script>
     const stars = document.querySelectorAll('.bi-star-fill');
@@ -120,6 +164,9 @@ use App\Models\Recept;
         })
             .then(response => response.json())
             .then(data => {
+                if (data.message === 'Používateľ nie je prihlásený.') {
+                    return this.location.href = '<?= $link->url('auth.login') ?>';
+                }
                 const messageContainer = document.getElementById('rating-message');
                 messageContainer.textContent = data.message;
             })

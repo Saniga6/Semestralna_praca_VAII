@@ -56,6 +56,7 @@ class AuthController extends AControllerBase
     public function logout(): Response
     {
         $this->app->getAuth()->logout();
+        $_SESSION['admin'] = 0;
         return $this->redirect(Configuration::HOME_URL);
     }
 }

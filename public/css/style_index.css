@@ -24,6 +24,11 @@
     padding-left: 5px;
 }
 
+.filter-container {
+    border-radius: 30px;
+    padding-left: 5px;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 15vw 1fr;
@@ -40,7 +45,7 @@
     white-space: normal;
     flex-direction: row;
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin-top: 10px;
     border: 1px solid #ccc;
     box-shadow: 2px 8px 10px rgba(255, 255, 255, 0.25);
 }
@@ -93,6 +98,12 @@
 
 .filter-text {
     color: blue;
+    border-bottom: 1px solid transparent;
+}
+
+.filter-text:hover {
+    color: red;
+    border-bottom: 1px solid red;
 }
 
 .img {
@@ -230,7 +241,12 @@ h3 {
     align-items: center;
     gap: 5px;
     cursor: pointer;
+}
 
+.response-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bi-star-fill {
@@ -242,4 +258,39 @@ h3 {
 .bi-star-fill.hovered,
 .bi-star-fill.selected {
     color: gold;
+}
+
+/* CSS for comments */
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.comment-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.comment-text {
+    flex: 1;
+    margin-right: 10px;
+    word-wrap: break-word;
+}
+
+.comment-author {
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
 }
